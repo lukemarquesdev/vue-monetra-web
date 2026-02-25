@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import BaseButton from '@/components/buttons/BaseButton.vue'
-import OutlineButton from '@/components/buttons/OutlineButton.vue'
-import BaseInput from '@/components/inputs/BaseInput.vue'
 
 const email = ref('')
 const password = ref('')
@@ -21,39 +19,55 @@ const submit = async () => {
 </script>
 
 <template>
-  <main class="flex-1 flex items-center justify-center">
-    <div class="w-full max-w-md bg-[#0b030a]/30 shadow-2xl shadow-[#101e39]/90 border-2 border-[#101e39] rounded-2xl p-8">
+  <main class="min-h-screen w-full flex items-center justify-center">
+
+    <div class="w-full max-w-md bg-white shadow-lg rounded-2xl p-8">
 
       <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-white">
+        <h1 class="text-3xl font-bold text-gray-800">
           Monetra
         </h1>
+        <p class="text-gray-500 mt-2">
+          Registre sua conta aqui
+        </p>
       </div>
 
       <form @submit.prevent="submit">
 
         <div>
-          <BaseInput
+          <label class="block text-sm font-medium text-gray-700 mb-1">
+            Email
+          </label>
+
+          <input
             v-model="email"
             type="email"
-            label="E-mail"
-            placeholder="Digite seu e-mail"
+            placeholder="seu@email.com"
             required
+            class="w-full px-4 py-2 border rounded-lg
+                   focus:ring-2 focus:ring-blue-500
+                   focus:outline-none"
           />
         </div>
 
-        <div class="mt-4">
-          <BaseInput
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1 mt-4">
+            Senha
+          </label>
+
+          <input
             v-model="password"
             type="password"
-            label="Senha"
-            placeholder="Digite sua senha"
+            placeholder="********"
             required
+            class="w-full px-4 py-2 border rounded-lg
+                   focus:ring-2 focus:ring-blue-500
+                   focus:outline-none"
           />
         </div>
 
         <div class="text-right mt-1 mb-4">
-          <a href="#" class="text-sm text-gray-400 hover:underline">
+          <a href="#" class="text-sm text-gray-600 hover:text-gray-800 hover:underline">
             Esqueceu sua senha?
           </a>
         </div>
@@ -63,20 +77,8 @@ const submit = async () => {
             type="submit"
             :loading="loading"
           >
-            Entrar
+            Registrar
           </BaseButton>
-        </div>
-
-        <div class="text-center mt-4 mb-4">
-          <div class="text-sm text-gray-400">
-            Não tem uma conta? Registre-se
-          </div>
-        </div>
-
-        <div>
-          <OutlineButton type="button">
-            Registre-se
-          </OutlineButton>
         </div>
 
       </form>
