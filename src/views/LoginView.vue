@@ -25,9 +25,8 @@ const submit = async () => {
     }
 
     toast.setToast('Login realizado com sucesso', true)
-    console.log(toast.show, toast.message)
-
-    // router.push('/dashboard')
+    
+    router.push('/dashboard')
   } finally {
     loading.value = false
   }

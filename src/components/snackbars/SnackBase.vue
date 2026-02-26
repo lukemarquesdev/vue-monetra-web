@@ -42,9 +42,6 @@ watch(
       {{ message }}
     </div>
   </transition>
-  <div>
-    teste
-  </div>
 </template>
 
 <style>
