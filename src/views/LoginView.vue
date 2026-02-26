@@ -3,25 +3,40 @@ import { ref } from 'vue'
 import BaseButton from '@/components/buttons/BaseButton.vue'
 import OutlineButton from '@/components/buttons/OutlineButton.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
+import { useAuthStore } from '@/stores/auth'
+import { useToastStore } from '@/stores/toast'
+import router from '@/router'
 
 const email = ref('')
 const password = ref('')
 const loading = ref(false)
+const auth = useAuthStore()
+const toast = useToastStore()
 
 const submit = async () => {
   loading.value = true
 
-  // TODO: chamar API login
-  console.log(email.value, password.value)
+  try {
+    const response = await auth.login(email.value, password.value)
+    
+    if (!response) {
+      toast.setToast('Email e/ou senha inválidos')
+      return
+    }
 
-  setTimeout(() => {
+    toast.setToast('Login realizado com sucesso', true)
+    console.log(toast.show, toast.message)
+
+    // router.push('/dashboard')
+  } finally {
     loading.value = false
-  }, 1000)
+  }
 }
 </script>
 
 <template>
   <main class="flex-1 flex items-center justify-center">
+
     <div class="w-full max-w-md bg-[#0b030a]/30 shadow-2xl shadow-[#101e39]/90 border-2 border-[#101e39] rounded-2xl p-8">
 
       <div class="text-center mb-8">
@@ -80,7 +95,7 @@ const submit = async () => {
         </div>
 
       </form>
-
+   
     </div>
 
   </main>
