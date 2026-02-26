@@ -1,27 +1,39 @@
-import type { User } from '@/types/user'
 import { defineStore } from 'pinia'
+import { AuthService } from '@/services/auth/AuthService'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    token: localStorage.getItem('token'),
-    user: null as User | null
+    user: AuthService.getUser(),
+    token: AuthService.getToken(),
   }),
 
   getters: {
-    isAuthenticated: (state) => !!state.token
+    isAuthenticated: (state) => !!state.token,
   },
 
   actions: {
-    login(token: string, user: User) {
-      this.token = token
-      this.user = user
-      localStorage.setItem('token', token)
+    async login(email: string, password: string) : Promise<any> {
+      const data = await AuthService.login({
+        email,
+        password,
+      })
+
+      if (!data) {
+        throw new Error('Invalid credentials')
+      }
+
+      AuthService.saveSession(data)
+
+      this.user = data.user
+      this.token = data.token
+
+      return data
     },
 
     logout() {
-      this.token = null
+      AuthService.logout()
       this.user = null
-      localStorage.removeItem('token')
-    }
-  }
+      this.token = null
+    },
+  },
 })
