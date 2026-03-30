@@ -22,6 +22,7 @@ const router = createRouter({
     },
     {
       path: '/',
+      name: 'main',
       component: DashboardLayout,
       meta: { requiresAuth: true },
       children: [
@@ -44,6 +45,10 @@ router.beforeEach((to) => {
   }
 
   if (to.name === 'login' && auth.isAuthenticated) {
+    return { name: 'dashboard' }
+  }
+
+  if (to.name === 'main' && auth.isAuthenticated) {
     return { name: 'dashboard' }
   }
 })

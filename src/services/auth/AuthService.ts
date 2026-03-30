@@ -41,7 +41,7 @@ export class AuthService {
             token: 'xashdjsiqqhVoT4dfmWdJj64qqvXaZJaofl2ercBk53GIuXiQFk1zJFud2XSulVuTHEeqy00zH',
             user: {
                 id: '1',
-                name: 'John Doe',
+                name: 'Luke Skywalker',
                 email: 'M8t1F@example.com'
             }
         }
